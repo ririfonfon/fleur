@@ -1,31 +1,36 @@
 #include <Arduino.h>
 
-#define DEBUG 1
+// #define DEBUG 1
 
-const int relayPin = 2;
-const int led1 = 5;
-const int led2 = 9;
-const int led3 = 10;
-const int led4 = 11;
+#include "variable.h"
+#include "random.h"
+#include "pwm_loop.h"
 
-int relayState = 0;
-int out1led;
-int out2led;
-int out3led;
-int out4led;
+
 
 void setup()
 {
-#ifdef DEBUG
+// #ifdef DEBUG
   Serial.begin(9600);
   Serial.println("Hello World!");
-#endif
+// #endif
 
   pinMode(relayPin, INPUT);
-  pinMode(led1, OUTPUT);
-  pinMode(led2, OUTPUT);
-  pinMode(led3, OUTPUT);
-  pinMode(led4, OUTPUT);
+
+  // init pwm
+  for (int k = 0; k < PWM_CHANNELS + 1; k++)
+  {
+    pinMode(PWM_GPIOPIN[k], OUTPUT);
+  }
+
+  // random output
+  rnd();
+#ifdef DEBUG
+  for (int k = 0; k > FOR_PWM_CHANNELS; k++)
+  {
+    Serial.println(ref[k]);
+  }
+#endif
 }
 
 void loop()
@@ -34,14 +39,8 @@ void loop()
 
   if (relayState == HIGH)
   {
-#ifdef DEBUG
-    Serial.println("Relay on");
-#endif
-    out1led++;
-    if (out1led > 255)
-    {
-      out1led = 0;
-    }
-    analogWrite(led1,out1led);
+    pwm_loop();
   }
+    pwm_loop();
+
 }
