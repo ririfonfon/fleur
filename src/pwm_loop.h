@@ -57,7 +57,7 @@ void pwm_loop()
                 // if (fade_clock && f_i[d])
                 if (f_i[d])
                 {
-                    value[d] += 5;
+                    value[d] += Channel_mod;
                 }
                 if (value[d] > High_value)
                 {
@@ -111,7 +111,7 @@ void pwm_loop()
                 // if (fade_clock && f_o[d])
                 if (f_o[d])
                 {
-                    value[d] -= 5;
+                    value[d] -= Channel_mod;
                 }
                 if (value[d] < 0)
                 {
@@ -167,7 +167,7 @@ void pwm_loop()
                 n[q] = false;
                 p[FOR_PWM_CHANNELS] = false;
             }
-            High_value = High_value - 25;
+            High_value -= Master_mod;
         } // if (p[FOR_PWM_CHANNELS] && currentMillis - currentp[FOR_PWM_CHANNELS] > off)
     }     // for (int d = 0; d < FOR_PWM_CHANNELS; d++)
 
@@ -189,6 +189,7 @@ void GO_fade_out()
             if (value[d] <= 0)
             {
                 value[d] = 0;
+                High_value = Def_High_value;
             }
             else
             {

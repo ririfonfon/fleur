@@ -16,17 +16,19 @@ bool f_i[PWM_CHANNELS + 1] = {false};
 bool f_o[PWM_CHANNELS + 1] = {false};
 bool p[PWM_CHANNELS + 1] = {false};
 bool n[PWM_CHANNELS + 1] = {false};
-// unsigned long currentp[PWM_CHANNELS];
 long currentp[PWM_CHANNELS];
 
 // DEFO
 uint8_t FOR_PWM_CHANNELS = 4; // Outputs
 long fade_in = 1;             // Seconds
 long fade_out = 1;            // Seconds
-long decalage = 200;         // Milliseconds
-long on = 10;               // Milliseconds
-long off = 10;              // Milliseconds
-uint8_t High_value = 255;      //
+long decalage = 300;          // Milliseconds
+long on = 10;                 // Milliseconds
+long off = 10;                // Milliseconds
+long time_boucle = 29000;     // Milliseconds
+const uint8_t Def_High_value = 255;     //
+uint8_t Channel_mod = 5;
+uint8_t Master_mod = 15;
 
 int value[PWM_CHANNELS + 1] = {0};
 
@@ -36,5 +38,8 @@ bool state_fade_out = true;
 bool state_rnd = true;
 
 bool start = true;
+bool state_relay = false;
+long time_relay;
 
+uint8_t High_value = Def_High_value;     //
 #endif
