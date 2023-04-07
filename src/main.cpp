@@ -28,36 +28,55 @@ void setup()
   }
 #endif
   time_relay = millis() + time_boucle + 10;
+  rnd();
 }
 
 void loop()
 {
-  relayState = digitalRead(relayPin);
-  if (relayState == HIGH && state_relay == false)
+  curent_relayState = digitalRead(relayPin);
+  if (curent_relayState == HIGH)
+  {
+    relayState = HIGH;
+    state_front = false;
+    pwm_loop();
+  }
+
+  if (curent_relayState == LOW && relayState == HIGH)
+  {
+    relayState = LOW;
+    state_front = true;
+  }
+
+  if (state_front == true && state_relay == false)
   {
     state_relay = true;
     time_relay = millis();
   }
-  if (time_boucle > millis() - time_relay)
+
+  if (state_relay)
   {
-    pwm_loop();
-    state_fade_out = true;
-  }
-  if (time_boucle < millis() - time_relay && state_fade_out)
-  {
-    Serial.print("GO ");
-    GO_fade_out();
-    state_rnd = true;
-  }
-  if (time_boucle < millis() - time_relay && state_rnd)
-  {
-    rnd();
-    for (int d = 0; d < FOR_PWM_CHANNELS; d++)
+    if (time_boucle > millis() - time_relay)
     {
-      analogWrite(PWM_GPIOPIN[d], 0);
-      delay(2);
+      pwm_loop();
+      state_fade_out = true;
     }
-    state_relay = false;
+    if (time_boucle < millis() - time_relay && state_fade_out)
+    {
+      Serial.print("GO ");
+      GO_fade_out();
+      state_rnd = true;
+    }
+    if (time_boucle < millis() - time_relay && state_rnd)
+    {
+      rnd();
+      for (int d = 0; d < FOR_PWM_CHANNELS; d++)
+      {
+        analogWrite(PWM_GPIOPIN[d], 0);
+        delay(2);
+      }
+      state_relay = false;
+      state_front = false;
+    }
   }
 
   // pwm_loop();

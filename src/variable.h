@@ -5,6 +5,7 @@
 
 const int relayPin = 2;
 
+int curent_relayState = 0;
 int relayState = 0;
 
 uint8_t PWM_GPIOPIN[4] = {5, 9, 10, 11};
@@ -36,6 +37,7 @@ uint8_t ref[PWM_CHANNELS + 1] = {0};
 
 bool state_fade_out = true;
 bool state_rnd = true;
+bool state_front = false;
 
 bool start = true;
 bool state_relay = false;
