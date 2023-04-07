@@ -6,6 +6,7 @@
 
 void rnd()
 {
+    Serial.print("rnd");
     randomSeed(analogRead(0));
 
     for (int j = 0; j < FOR_PWM_CHANNELS; j++)
@@ -16,7 +17,6 @@ void rnd()
 
     boolean equals;
 
-    // while (i != FOR_PWM_CHANNELS)
     while (i < FOR_PWM_CHANNELS)
     {
         ref[i] = random(FOR_PWM_CHANNELS);
@@ -46,6 +46,7 @@ void rnd()
         Serial.println(PWM_GPIOPIN[k]);
 #endif
     }
+    state_rnd = false;
 }
 
 #endif

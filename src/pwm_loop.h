@@ -7,7 +7,7 @@
 
 void pwm_loop()
 {
-    bool fade_clock;
+    // bool fade_clock;
     long currentMillis = millis();
 
     if (cycle)
@@ -168,21 +168,47 @@ void pwm_loop()
                 p[FOR_PWM_CHANNELS] = false;
             }
             High_value = High_value - 25;
-            // cycle = true;
-            // rnd();
         } // if (p[FOR_PWM_CHANNELS] && currentMillis - currentp[FOR_PWM_CHANNELS] > off)
     }     // for (int d = 0; d < FOR_PWM_CHANNELS; d++)
 
     for (int d = 0; d < FOR_PWM_CHANNELS; d++)
     {
-        // ledcWrite(d, ((value[ref[d]] * value[ref[d]]) / 65535));
+
         analogWrite(PWM_GPIOPIN[d], value[ref[d]]);
         delay(2);
-        // Serial.print(" d :");
-        // Serial.print(d);
-        // Serial.print("] at ");
-        // Serial.print(value[ref[d]] );
     } // for(int d=0; d>FOR_PWM_CHANNELS;d++)
+}
+
+void GO_fade_out()
+{
+    while (value[0] != 0 || value[1] != 0 || value[2] != 0 || value[3] != 0)
+    {
+        for (int d = 0; d < FOR_PWM_CHANNELS; d++)
+        {
+
+            if (value[d] <= 0)
+            {
+                value[d] = 0;
+            }
+            else
+            {
+                value[d] -= 1;
+            }
+            analogWrite(PWM_GPIOPIN[d], value[ref[d]]);
+            delay(2);
+        }
+    }
+
+    for (int q = 0; q < FOR_PWM_CHANNELS; q++)
+    {
+        p[q] = false;
+        f_i[q] = false;
+        f_o[q] = false;
+        n[q] = false;
+        p[FOR_PWM_CHANNELS] = false;
+    }
+    state_fade_out = false;
+    cycle = true;
 }
 
 #endif

@@ -18,13 +18,13 @@ void setup()
   pinMode(relayPin, INPUT);
 
   // init pwm
-  for (int k = 0; k < PWM_CHANNELS + 1; k++)
+  for (int k = 0; k < FOR_PWM_CHANNELS - 1; k++)
   {
     pinMode(PWM_GPIOPIN[k], OUTPUT);
   }
 
   // random output
-  rnd();
+  // rnd();
 #ifdef DEBUG
   for (int k = 0; k > FOR_PWM_CHANNELS; k++)
   {
@@ -40,7 +40,19 @@ void loop()
   if (relayState == HIGH)
   {
     pwm_loop();
+    state_fade_out = true;
   }
-    pwm_loop();
+  if (relayState == LOW && state_fade_out)
+  {
+    Serial.print("GO ");
+    GO_fade_out();
+    state_rnd = true;
+  }
+  if (relayState == LOW && state_rnd)
+  {
+    rnd();
+  }
+  
+    // pwm_loop();
 
 }

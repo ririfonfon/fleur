@@ -32,7 +32,8 @@ int value[PWM_CHANNELS + 1] = {0};
 
 uint8_t ref[PWM_CHANNELS + 1] = {0};
 
-bool init_w = false;
+bool state_fade_out = true;
+bool state_rnd = true;
 
 bool start = true;
 
