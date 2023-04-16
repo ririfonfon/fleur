@@ -28,8 +28,9 @@ long on = 10;                 // Milliseconds
 long off = 10;                // Milliseconds
 long time_boucle = 29000;     // Milliseconds
 const uint8_t Def_High_value = 255;     //
+const uint8_t Def_Low_value = 1;     //
 uint8_t Channel_mod = 5;
-uint8_t Master_mod = 15;
+uint8_t Master_mod = 0;
 
 int value[PWM_CHANNELS + 1] = {0};
 
