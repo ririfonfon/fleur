@@ -113,9 +113,9 @@ void pwm_loop()
                 {
                     value[d] -= Channel_mod;
                 }
-                if (value[d] < 0)
+                if (value[d] < Def_Low_value)
                 {
-                    value[d] = 0;
+                    value[d] = Def_Low_value;
                     f_o[d] = false;
                     n[d] = true;
                     currentp[d] = currentMillis;
@@ -130,7 +130,7 @@ void pwm_loop()
             } // if (fade_out != 0)
             else if (fade_out <= 0)
             {
-                value[d] = 0;
+                value[d] = Def_Low_value;
                 f_o[d] = false;
                 n[d] = true;
                 currentp[d] = currentMillis;
