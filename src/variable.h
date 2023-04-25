@@ -26,9 +26,9 @@ long fade_out = 1;            // Seconds
 long decalage = 300;          // Milliseconds
 long on = 10;                 // Milliseconds
 long off = 10;                // Milliseconds
-long time_boucle = 29000;     // Milliseconds
+long time_boucle = 8000;     // Milliseconds
 const uint8_t Def_High_value = 255;     //
-const uint8_t Def_Low_value = 1;     //
+const uint8_t Def_Low_value = 0;     //
 uint8_t Channel_mod = 5;
 uint8_t Master_mod = 0;
 
@@ -37,6 +37,7 @@ int value[PWM_CHANNELS + 1] = {0};
 uint8_t ref[PWM_CHANNELS + 1] = {0};
 
 bool state_fade_out = true;
+bool state_fade_in = true;
 bool state_rnd = true;
 bool state_front = false;
 

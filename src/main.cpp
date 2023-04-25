@@ -38,7 +38,9 @@ void loop()
   {
     relayState = HIGH;
     state_front = false;
-    pwm_loop();
+    time_relay = millis();
+    // pwm_loop();
+    GO_fade_in();
   }
 
   if (curent_relayState == LOW && relayState == HIGH)
@@ -49,18 +51,19 @@ void loop()
 
   if (state_front == true && state_relay == false)
   {
-    state_relay = true;
-    time_relay = millis();
+    // state_relay = true;
   }
 
   if (state_relay)
   {
     if (time_boucle > millis() - time_relay)
     {
-      pwm_loop();
+      // pwm_loop();
+      GO_on();
       state_fade_out = true;
     }
-    if (time_boucle < millis() - time_relay && state_fade_out)
+    // if (time_boucle < millis() - time_relay && state_fade_out)
+    if (time_boucle < millis() - time_relay )
     {
       Serial.print("GO ");
       GO_fade_out();

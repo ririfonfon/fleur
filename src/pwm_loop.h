@@ -178,6 +178,48 @@ void pwm_loop()
         delay(2);
     } // for(int d=0; d>FOR_PWM_CHANNELS;d++)
 }
+void GO_fade_in()
+{
+    while (value[0] != High_value || value[1] != High_value || value[2] != High_value || value[3] != High_value)
+    {
+        for (int d = 0; d < FOR_PWM_CHANNELS; d++)
+        {
+
+            if (value[d] >= High_value)
+            {
+                High_value = Def_High_value;
+                value[d] = High_value;
+            }
+            else
+            {
+                value[d] += 1;
+            }
+            analogWrite(PWM_GPIOPIN[d], value[ref[d]]);
+            delay(2);
+        }
+    }
+
+    for (int q = 0; q < FOR_PWM_CHANNELS; q++)
+    {
+        p[q] = false;
+        f_i[q] = false;
+        f_o[q] = false;
+        n[q] = false;
+        p[FOR_PWM_CHANNELS] = false;
+    }
+    state_fade_in = false;
+    cycle = true;
+    state_relay = true;
+}
+
+void GO_on()
+{
+   for (int d = 0; d < FOR_PWM_CHANNELS; d++)
+        {
+            analogWrite(PWM_GPIOPIN[d], High_value);
+            delay(2);
+        } 
+}
 
 void GO_fade_out()
 {
