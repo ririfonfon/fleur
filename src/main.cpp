@@ -34,7 +34,7 @@ void setup()
 void loop()
 {
   curent_relayState = digitalRead(relayPin);
-  if (curent_relayState == HIGH)
+  if (curent_relayState == HIGH && relayState == LOW)
   {
     relayState = HIGH;
     state_front = false;
@@ -45,7 +45,7 @@ void loop()
 
   if (curent_relayState == LOW && relayState == HIGH)
   {
-    relayState = LOW;
+    // relayState = LOW;
     state_front = true;
   }
 
@@ -63,7 +63,7 @@ void loop()
       state_fade_out = true;
     }
     // if (time_boucle < millis() - time_relay && state_fade_out)
-    if (time_boucle < millis() - time_relay )
+    if (time_boucle < millis() - time_relay)
     {
       Serial.print("GO ");
       GO_fade_out();
@@ -79,6 +79,7 @@ void loop()
       }
       state_relay = false;
       state_front = false;
+      relayState = LOW;
     }
   }
 
